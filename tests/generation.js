@@ -38,9 +38,15 @@ list.forEach(function(file){
             swagger: swagger,
             template: {
                 class: fs.readFileSync(__dirname + '/../templates/angular-class.mustache', 'utf-8'),
-                method: fs.readFileSync(__dirname + '/../templates/method.mustache', 'utf-8'),
+                method: fs.readFileSync(__dirname + '/../templates/angular-method.mustache', 'utf-8'),
                 request:fs.readFileSync(__dirname + '/../templates/angular-request.mustache', 'utf-8')
             }
+        });
+        assert(typeof(result), 'string');
+        result = CodeGen.getFetchCode({
+            moduleName: 'Test',
+            className: 'Test',
+            swagger: swagger
         });
         assert(typeof(result), 'string');
     };

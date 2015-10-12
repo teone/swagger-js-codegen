@@ -1,0 +1,27 @@
+
+
+headers['Accept'] = 'application/json';
+headers['Content-Type'] = 'application/json';
+
+var uri = domain + path;
+
+if (queryParameters && typeof queryParameters === 'object') {
+  uri += Object.keys(queryParameters).reduce(function(qp, key){
+    return qp + key + '=' + queryParameters[key];
+  },'?');
+}
+
+fetch(uri, {
+    method: '{{method}}',
+    headers: headers,
+    body: body
+}).then(function(response) {
+    if(response.ok) {
+      response.json()
+      .then(deferred.resolve, deferred.reject);
+    } else {
+       deferred.reject(response.status);
+    }
+}).catch(function(err) {
+    deferred.reject(err);
+});
